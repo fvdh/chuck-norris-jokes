@@ -1,32 +1,38 @@
 <template>
   <div id="favorites">
 
-    <header>
-      <h1>Favorites</h1>
-      <template v-if="favorites.length">
-        <span>({{favorites.length}})</span>
-      </template>
-    </header>
+    <template v-if="favorites.length == 0">
+      <h1 class="no-favorite">No favorites just yet!</h1>
+    </template>
 
-    <section>
+    <template v-else>
+      <header>
+        <h1>Favorites</h1>
+        <template v-if="favorites.length">
+          <span>({{favorites.length}})</span>
+        </template>
+      </header>
 
-      <ul class="favorite-list">
-        <li v-for="(fav, index) in favorites" class="favorite-list_item">
-          <div class="list-container">
+      <section>
 
-            <div class="favorite-content">
-              {{fav.joke}}
+        <ul class="favorite-list">
+          <li v-for="(fav, index) in favorites" class="favorite-list_item">
+            <div class="list-container">
+
+              <div class="favorite-content">
+                {{fav.joke}}
+              </div>
+
+              <div class="favorite-actions">
+                <button @click="deleteFavorite(fav.id, fav.val)"> <deleteOutline /> </button>
+              </div>
+
             </div>
+          </li>
+        </ul>
 
-            <div class="favorite-actions">
-              <button @click="deleteFavorite(fav.id, fav.val)"> <deleteOutline /> </button>
-            </div>
-
-          </div>
-        </li>
-      </ul>
-
-    </section>
+      </section>
+    </template>
 
   </div>
 </template>
@@ -52,6 +58,18 @@
 <style scoped lang="less">
   #favorites{
     background: #1abc9c;
+    position: relative;
+    .no-favorite{
+        font-size: 22px;
+        font-weight: 400;
+        letter-spacing: 0.075em;
+        margin: 0;
+        color: #fff;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        transform: translate(-50%, -50% );
+    }
     header{
       h1{
         color: #fff;
